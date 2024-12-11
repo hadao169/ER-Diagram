@@ -1,0 +1,39 @@
+erDiagram
+    USER {
+        INTEGER user_id PK
+        TEXT name
+        TEXT email
+        TEXT password
+        TEXT currency
+        TEXT notification_preferences
+    }
+
+    TRANSACTION {
+        INTEGER transaction_id PK
+        REAL amount
+        TEXT date
+        TEXT type
+        TEXT category
+        TEXT description
+        INTEGER user_id FK
+    }
+
+    CATEGORY {
+        INTEGER category_id PK
+        TEXT name
+        INTEGER user_id FK
+    }
+
+    BUDGET {
+        INTEGER budget_id PK
+        INTEGER user_id FK
+        INTEGER category_id FK
+        REAL amount
+        TEXT period
+    }
+
+    USER ||--|{ TRANSACTION: "has"
+    USER ||--|{ CATEGORY: "has"
+    USER ||--|{ BUDGET: "sets"
+    TRANSACTION }|--|| CATEGORY: "belongs_to"
+    CATEGORY ||--|| BUDGET: "has"
